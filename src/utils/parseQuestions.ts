@@ -116,17 +116,19 @@ export const parseQuestionsFile = async (file: File): Promise<ParseResult> => {
   }
 
   // Process each row
-  const validQuestions: Record<string, any>[] = [];
+  const validQuestions: ParsedQuestion[] = [];
   const invalidQuestions: ValidationError[] = [];
 
   rows.forEach((row, index) => {
     const rowNumber = index + 2; // +2 because header is row 1, data starts at row 2
 
-    const validation = validateQuestion(row, rowNumber);
+    const validation = validateQuestion(row);
 
     if (validation.valid) {
-      const normalized = normalizeQuestion(row, rowNumber);
+      const normalized = normalizeQuestion(row);
       if (normalized) {
+        // Set the rowNumber after normalization
+        normalized.rowNumber = rowNumber;
         validQuestions.push(normalized);
       }
     } else {
@@ -136,7 +138,7 @@ export const parseQuestionsFile = async (file: File): Promise<ParseResult> => {
   });
 
   return {
-    validQuestions: validQuestions as ParsedQuestion[],
+    validQuestions,
     invalidQuestions,
     totalRows: rows.length,
   };
@@ -146,7 +148,7 @@ export const parseQuestionsFile = async (file: File): Promise<ParseResult> => {
  * Convert parsed questions to QuestionForm format for AssessmentCreation
  * The correct_answer value is already set to the actual text during normalization
  */
-export const convertToQuestionForm = (parsedQuestion: any) => {
+export const convertToQuestionForm = (parsedQuestion: ParsedQuestion) => {
   return {
     type: 'MCQ' as const,
     question_text: parsedQuestion.question_text,
@@ -156,7 +158,7 @@ export const convertToQuestionForm = (parsedQuestion: any) => {
       parsedQuestion.option_c,
       parsedQuestion.option_d,
     ],
-    correct_answer: parsedQuestion.correct_answer, // Already the text value from normalization
+    correct_answer: parsedQuestion.correct_answer,
     marks: parsedQuestion.marks,
   };
 };

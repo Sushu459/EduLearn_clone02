@@ -1,5 +1,3 @@
-// utils/validateQuestion.ts
-
 import type { ParsedQuestion, ValidationError } from '../hooks/bulkUpload';
 
 const REQUIRED_HEADERS = [
@@ -27,8 +25,7 @@ export const validateHeaders = (headers: string[]): { valid: boolean; missing: s
  * Validate individual question row
  */
 export const validateQuestion = (
-  row: Record<string, any>,
-  rowNumber: number
+  row: Record<string, any>
 ): { valid: boolean; errors: string[] } => {
   const errors: string[] = [];
 
@@ -85,21 +82,16 @@ export const validateQuestion = (
  * Process and normalize a question row
  */
 export const normalizeQuestion = (
-  row: Record<string, any>,
-  rowNumber: number
+  row: Record<string, any>
 ): ParsedQuestion | null => {
-  const validation = validateQuestion(row, rowNumber);
+  const validation = validateQuestion(row);
 
   if (!validation.valid) {
     return null;
   }
 
-  // Find which option matches the correct_answer value
-  const options = ['option_a', 'option_b', 'option_c', 'option_d'];
+  // Get the correct answer value
   const correctAnswerValue = row.correct_answer.trim();
-  const matchedOption = options.find(
-    opt => row[opt]?.trim().toLowerCase() === correctAnswerValue.toLowerCase()
-  );
 
   return {
     question_text: row.question_text.trim(),
@@ -107,9 +99,9 @@ export const normalizeQuestion = (
     option_b: row.option_b.trim(),
     option_c: row.option_c.trim(),
     option_d: row.option_d.trim(),
-    correct_answer: correctAnswerValue, // Store the actual value
+    correct_answer: correctAnswerValue,
     marks: parseInt(row.marks, 10),
-    rowNumber,
+    rowNumber: 0,
   };
 };
 
