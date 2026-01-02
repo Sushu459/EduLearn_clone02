@@ -86,13 +86,13 @@ export interface Submission {
   answers: Record<string, string>;
   mcq_score: number | null;
   theory_score: number | null;
-  total_score: number | null;
+  total_score: number;
   submitted_at: string;
-  status?: string;
-  grade?: string;
-  faculty_feedback?: string;
-  faculty_rating?: number | null;
-  is_auto_submitted?: boolean;
+  //status?: string;
+  //grade?: string;
+  //faculty_feedback?: string;
+  //faculty_rating?: number | null;
+  //is_auto_submitted?: boolean;
 }
 
 export interface Subject {
