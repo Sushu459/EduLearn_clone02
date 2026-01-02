@@ -84,10 +84,15 @@ export interface Submission {
   assessment_id: string;
   student_id: string;
   answers: Record<string, string>;
-  mcq_score: number;
+  mcq_score: number | null;
   theory_score: number | null;
-  total_score: number;
+  total_score: number | null;
   submitted_at: string;
+  status?: string;
+  grade?: string;
+  faculty_feedback?: string;
+  faculty_rating?: number | null;
+  is_auto_submitted?: boolean;
 }
 
 export interface Subject {
