@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
+import { Search, Code2 } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../../utils/supabaseClient'
+import { CheckCircle, RefreshCcw, Circle } from 'lucide-react'
+import img from '../../assets/codingPic.jpeg'
 import {
   CodingQuestion,
   CodingSubmission
@@ -19,6 +22,7 @@ const StudentCodingLabPage: React.FC<StudentCodingLabPageProps> = ({ user }) => 
 
   const [filterDifficulty, setFilterDifficulty] = useState<string>('all')
   const [filterLanguage, setFilterLanguage] = useState<string>('all')
+  const [searchQuery, setSearchQuery] = useState<string>('')
 
   useEffect(() => {
     fetchQuestions()
@@ -57,19 +61,29 @@ const StudentCodingLabPage: React.FC<StudentCodingLabPageProps> = ({ user }) => 
     }
   }
 
-  /* ================= ONLY CHANGE HERE ================= */
+  /* ================= ROUTE ================= */
   const handleSelectQuestion = (question: CodingQuestion) => {
-    navigate(`/coding-lab/${question.id}`) // ✅ ROUTE-BASED
+    navigate(`/coding-lab/${question.id}`)
   }
 
   /* ================= FILTER ================= */
   const filteredQuestions = questions.filter(q => {
-    if (filterDifficulty !== 'all' && q.difficulty !== filterDifficulty) return false
+    if (filterDifficulty !== 'all' && q.difficulty !== filterDifficulty)
+      return false
+
     if (
       filterLanguage !== 'all' &&
-      q.programming_language.toLowerCase() !== filterLanguage.toLowerCase()
+      q.programming_language.toLowerCase() !==
+        filterLanguage.toLowerCase()
     )
       return false
+
+    if (
+      searchQuery.trim() !== '' &&
+      !q.title.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+      return false
+
     return true
   })
 
@@ -77,7 +91,41 @@ const StudentCodingLabPage: React.FC<StudentCodingLabPageProps> = ({ user }) => 
   return (
     <div className="min-h-screen bg-gray-50 p-6">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl font-bold mb-6">📝 Coding Practice Lab</h1>
+
+        {/* ===== Header with Image ===== */}
+        {/* ===== Hero Header (Image fills card) ===== */}
+<div className="mb-8">
+  <div
+    className="relative rounded-xl overflow-hidden h-34 md:h-40"
+    style={{
+      backgroundImage: `url(${img})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center'
+    }}
+  >
+    {/* Dark overlay */}
+    <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-black/40 to-transparent" />
+
+    {/* Content */}
+    <div className="relative z-10 h-full flex items-center px-6 md:px-10">
+      <div className="flex items-start gap-4">
+        <div className="p-3 rounded-xl bg-white/20 backdrop-blur">
+          <Code2 className="text-white" size={30} />
+        </div>
+
+        <div>
+          <h1 className="text-3xl md:text-4xl font-semibold text-white">
+            Coding Practice Lab
+          </h1>
+          <p className="mt-2 text-sm md:text-base text-gray-200 max-w-xl">
+            Practice coding problems. improve logical thinking. and track your progress.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 
         {error && (
           <div className="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
@@ -90,7 +138,23 @@ const StudentCodingLabPage: React.FC<StudentCodingLabPageProps> = ({ user }) => 
             Problems ({filteredQuestions.length})
           </h2>
 
-          {/* Filters */}
+          {/* ===== Search Bar ===== */}
+          <div className="mb-4 relative">
+            <Search
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+              size={18}
+            />
+            <input
+              type="text"
+              placeholder="Search problems by title"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-10 pr-3 py-3 border rounded 
+                         focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+
+          {/* ===== Filters ===== */}
           <div className="mb-4 grid grid-cols-1 md:grid-cols-2 gap-3">
             <select
               value={filterDifficulty}
@@ -110,19 +174,21 @@ const StudentCodingLabPage: React.FC<StudentCodingLabPageProps> = ({ user }) => 
             >
               <option value="all">All Languages</option>
               <option value="python">Python</option>
-              <option value="javascript">JavaScript</option>
+              {/* <option value="javascript">JavaScript</option> */}
               <option value="java">Java</option>
               <option value="c++">C++</option>
             </select>
           </div>
 
-          {/* Question List */}
+          {/* ===== Question List ===== */}
           <div className="space-y-2 max-h-[65vh] overflow-y-auto">
             {filteredQuestions.map(q => {
               const passed = submissions.some(
                 s => s.question_id === q.id && s.status === 'accepted'
               )
-              const attempted = submissions.some(s => s.question_id === q.id)
+              const attempted = submissions.some(
+                s => s.question_id === q.id
+              )
 
               return (
                 <button
@@ -149,15 +215,29 @@ const StudentCodingLabPage: React.FC<StudentCodingLabPageProps> = ({ user }) => 
                       </div>
                     </div>
 
-                    <div className="text-sm font-semibold">
-                      {passed && <span className="text-green-600">✅ Passed</span>}
-                      {!passed && attempted && (
-                        <span className="text-yellow-600">🔄 Attempted</span>
+                   <div className="flex items-center gap-2 text-sm font-medium">
+                      {passed && (
+                        <span className="flex items-center gap-1 text-green-600">
+                          <CheckCircle size={16} />
+                          Solved
+                        </span>
                       )}
+                    
+                      {!passed && attempted && (
+                        <span className="flex items-center gap-1 text-yellow-600">
+                          <RefreshCcw size={16} />
+                          Attempted
+                        </span>
+                      )}
+
                       {!attempted && (
-                        <span className="text-gray-500">⭕ Not Started</span>
+                        <span className="flex items-center gap-1 text-gray-500">
+                          <Circle size={16} />
+                          Pending
+                        </span>
                       )}
                     </div>
+
                   </div>
                 </button>
               )
