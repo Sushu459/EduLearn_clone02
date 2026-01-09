@@ -3,7 +3,7 @@ import { Search, Code2 } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../../utils/supabaseClient'
 import { CheckCircle, RefreshCcw, Circle } from 'lucide-react'
-import img from '../../assets/codingPic.jpeg'
+import img from '../../assets/codingPic.jpg'
 import {
   CodingQuestion,
   CodingSubmission

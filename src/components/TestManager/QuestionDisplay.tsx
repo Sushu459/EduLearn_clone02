@@ -54,7 +54,7 @@ const QuestionDisplay: React.FC<QuestionDisplayProps> = ({
     }
   };
 
-  // Calculate progress percentage
+  // // Calculate progress percentage
   // const getProgressPercentage = () => {
   //   return ((currentQuestionIndex + 1) / totalQuestions) * 100;
   // };

@@ -3,11 +3,9 @@ import { supabase } from './supabaseClient'
 
 
 
-
 // ============================================================================
 // TYPES
 // ============================================================================
-
 
 
 
@@ -30,12 +28,10 @@ export interface CodingQuestion {
 
 
 
-
 export interface TestCase {
   input: string
   expectedOutput: string
 }
-
 
 
 
@@ -48,7 +44,6 @@ export interface HiddenTestCase {
   is_active: boolean
   created_at: string
 }
-
 
 
 

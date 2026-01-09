@@ -6,16 +6,16 @@ import { createClient } from '@supabase/supabase-js';
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-const supabaseServiceKey = import.meta.env.VITE_SUPABASE_SERVICE_KEY;
+//const supabaseServiceKey = import.meta.env.VITE_SUPABASE_SERVICE_KEY;
 
 // Validate
 if (!supabaseUrl || !supabaseAnonKey) {
   throw new Error('❌ Missing Supabase configuration in .env');
 }
 
-if (!supabaseServiceKey) {
-  console.warn('⚠️ SERVICE_ROLE key missing — Admin features disabled');
-}
+// if (!supabaseServiceKey) {
+//   console.warn('⚠️ SERVICE_ROLE key missing — Admin features disabled');
+// }
 
 // ================================================================
 // CREATE CLIENTS
@@ -25,11 +25,11 @@ if (!supabaseServiceKey) {
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 // Admin client (RLS bypassed) — only if key exists
-export const supabaseAdmin = supabaseServiceKey
-  ? createClient(supabaseUrl, supabaseServiceKey, {
-      auth: { autoRefreshToken: false, persistSession: false }
-    })
-  : null;
+// export const supabaseAdmin = supabaseServiceKey
+//   ? createClient(supabaseUrl, supabaseServiceKey, {
+//       auth: { autoRefreshToken: false, persistSession: false }
+//     })
+//   : null;
 
 // ================================================================
 // DATABASE TYPES FOR TYPESCRIPT
@@ -84,15 +84,10 @@ export interface Submission {
   assessment_id: string;
   student_id: string;
   answers: Record<string, string>;
-  mcq_score: number | null;
+  mcq_score: number;
   theory_score: number | null;
   total_score: number;
   submitted_at: string;
-  //status?: string;
-  //grade?: string;
-  //faculty_feedback?: string;
-  //faculty_rating?: number | null;
-  //is_auto_submitted?: boolean;
 }
 
 export interface Subject {

@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../utils/supabaseClient';
 import type { User, Assessment, Submission } from '../utils/supabaseClient';
-import NavigationSidebar from './NavigationSidebar';
+//import NavigationSidebar from './NavigationSidebar';
 import TestInstructions from './TestInstructions';
 import { BookOpen, Clock, CheckCircle, PlayCircle, Sparkles, Code2, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import img from '../assets/codingPic.jpeg';
-import ailog from '../assets/aiCard.jpeg';
+import img from '../assets/codingPic.jpg';
+import ailog from '../assets/aiCard.jpg';
+import LoadingSpinner from '../layouts/LoadingSpinner';
+//import PremiumLoader from '../layouts/PremiumLoader';
 
 interface StudentDashboardProps {
   user: User;
 }
 
-const ITEMS_PER_PAGE = 5;
+const ITEMS_PER_PAGE = 6;
 
 const StudentDashboard: React.FC<StudentDashboardProps> = ({ user }) => {
   const navigate = useNavigate();
@@ -106,21 +108,25 @@ const StudentDashboard: React.FC<StudentDashboardProps> = ({ user }) => {
   if (loading) {
     return (
       <div className="flex">
-        <NavigationSidebar user={user} />
+        {/* <NavigationSidebar user={user} /> */}
         <div className="flex-1 flex items-center justify-center">
-          <div className="text-lg text-gray-600">Loading...</div>
+          <LoadingSpinner message="Loading dashboard..." />
         </div>
       </div>
     );
   }
+        
 
   return (
     <div className="flex bg-gray-50 min-h-screen">
-      <NavigationSidebar user={user} />
+      {/* <NavigationSidebar user={user} /> */}
 
       <div className="flex-1 p-8">
         <div className="mb-8">
-          <h2 className="text-3xl font-bold text-gray-800 mb-2">Student Dashboard</h2>
+          <h2 className="text-3xl font-extrabold mb-2 bg-gradient-to-r from-purple-800 to-gray-800 bg-clip-text text-transparent">
+  Student Dashboard
+</h2>
+
           <p className="text-gray-600">View and attempt available assessments</p>
         </div>
 
@@ -152,7 +158,7 @@ const StudentDashboard: React.FC<StudentDashboardProps> = ({ user }) => {
                 <button
                   onClick={() => navigate('/coding-lab')}
                   className="bg-white text-blue-700 px-4 py-1.5 rounded-md text-sm font-medium
-                             hover:bg-blue-100 transition-colors"
+                             hover:bg-blue-50 transition-colors"
                 >
                   Start Coding
                 </button>

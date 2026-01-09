@@ -3,9 +3,11 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { supabase } from '../utils/supabaseClient';
 import type { User, Question } from '../utils/supabaseClient';
 import { autoGradeMCQ } from '../utils/autoGrading';
-import NavigationSidebar from './NavigationSidebar';
+//import NavigationSidebar from './NavigationSidebar';
 import ConfirmationModal from './ConfirmationModal';
 import QuestionDisplay from '../components/TestManager/QuestionDisplay';
+import PremiumLoader from '../layouts/PremiumLoader';
+
 import {
   getOrCreateTestSession,
   calculateRemainingTime,
@@ -262,8 +264,8 @@ const TestTaking: React.FC<TestTakingProps> = ({ user }) => {
   //           position: 'top-right',
   //           autoClose: 5000,
   //           className: 'bg-red-50 border-l-4 border-red-600',
-  //          // bodyClassName: 'text-red-700 font-semibold',
-  //          // icon: '⚠️',
+  //           bodyClassName: 'text-red-700 font-semibold',
+  //           icon: '⚠️',
   //         });
   //         console.warn('⏰ 5-minute warning shown');
   //       }
@@ -276,8 +278,8 @@ const TestTaking: React.FC<TestTakingProps> = ({ user }) => {
   //           position: 'top-right',
   //           autoClose: 3000,
   //           className: 'bg-red-100 border-l-4 border-red-800',
-  //          // bodyClassName: 'text-red-800 font-bold',
-  //           //icon: '🚨',
+  //           bodyClassName: 'text-red-800 font-bold',
+  //           icon: '🚨',
   //         });
   //         console.error('🚨 1-minute warning shown');
   //       }
@@ -287,9 +289,7 @@ const TestTaking: React.FC<TestTakingProps> = ({ user }) => {
 
   //   return () => clearInterval(timer);
   // }, [testSession, isTimeExpired, submitting, hasShownFiveMinWarning, hasShownOneMinWarning]);
-
-
-  // Replace the timer countdown useEffect with this:
+// Replace the timer countdown useEffect with this:
 
 useEffect(() => {
   if (!testSession || isTimeExpired || submitting) return;
@@ -310,7 +310,7 @@ useEffect(() => {
       // Only show 1-minute warning if time is between 1-60 seconds
       if (remaining > 60 && remaining <= 300 && !hasShownFiveMinWarning) {
         setHasShownFiveMinWarning(true);
-        toast.warning('⏰ Time is running out! You have only less than 5 minutes left!', {
+        toast.warning('⏰ Time is running out! You have only 5 minutes left!', {
           position: 'top-right',
           autoClose: 5000,
           className: 'bg-amber-50 border-l-4 border-amber-600',
@@ -514,9 +514,9 @@ useEffect(() => {
   if (loading) {
     return (
       <div className="flex">
-        <NavigationSidebar user={user} />
+        {/* <NavigationSidebar user={user} /> */}
         <div className="flex-1 flex items-center justify-center bg-gray-50">
-          <div className="text-lg text-gray-600">Loading test...</div>
+          <PremiumLoader message="Loading test..." />
         </div>
       </div>
     );
@@ -526,7 +526,7 @@ useEffect(() => {
   if (error) {
     return (
       <div className="flex">
-        <NavigationSidebar user={user} />
+        {/* <NavigationSidebar user={user} /> */}
         <div className="flex-1 flex items-center justify-center bg-gray-50">
           <div className="bg-white rounded-lg shadow-lg p-8 max-w-md text-center">
             <AlertCircle className="w-12 h-12 text-red-600 mx-auto mb-4" />
@@ -549,7 +549,7 @@ useEffect(() => {
   if (!assessment || !testSession) {
     return (
       <div className="flex">
-        <NavigationSidebar user={user} />
+        {/* <NavigationSidebar user={user} /> */}
         <div className="flex-1 flex items-center justify-center bg-gray-50">
           <div className="text-lg text-red-600">Assessment not found</div>
         </div>
@@ -561,7 +561,7 @@ useEffect(() => {
   if (isTimeExpired) {
     return (
       <div className="flex">
-        <NavigationSidebar user={user} />
+        {/* <NavigationSidebar user={user} /> */}
         <div className="flex-1 flex items-center justify-center bg-gray-50">
           <div className="bg-white rounded-lg shadow-lg p-8 text-center max-w-md">
             <AlertCircle className="w-16 h-16 text-red-600 mx-auto mb-4" />
@@ -588,7 +588,7 @@ useEffect(() => {
 
   return (
     <div className="flex bg-gray-50 min-h-screen">
-      <NavigationSidebar user={user} />
+      {/* <NavigationSidebar user={user} /> */}
 
 
       <div className="flex-1 flex flex-col">
