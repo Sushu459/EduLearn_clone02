@@ -161,7 +161,7 @@ const FacultyStudentManagement: React.FC<FacultyStudentManagementProps> = () => 
   }
 
   return (
-    <div className="flex bg-gray-50 min-h-screen">
+    <div className="flex bg-gray-100 min-h-screen">
       <div className="flex-1 p-8">
         {/* Header Section */}
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-8">

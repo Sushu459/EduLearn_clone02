@@ -286,7 +286,7 @@ const AdminSubmissions: React.FC<AdminSubmissionsProps> = () => {
 
 
   return (
-    <div className="flex bg-gray-50 min-h-screen">
+    <div className="flex bg-gray-100 min-h-screen">
       {/* <NavigationSidebar user={user} /> */}
 
 

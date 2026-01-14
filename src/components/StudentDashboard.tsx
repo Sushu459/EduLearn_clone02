@@ -150,7 +150,7 @@ const StudentDashboard: React.FC<StudentDashboardProps> = ({ user }) => {
   }
 
   return (
-    <div className="flex bg-gray-50 min-h-screen">
+    <div className="flex bg-gray-100 min-h-screen">
       <div className="flex-1 p-8">
         <div className="mb-8">
           <h2 className="text-3xl font-extrabold mb-2 bg-gradient-to-r from-purple-800 to-gray-800 bg-clip-text text-transparent">

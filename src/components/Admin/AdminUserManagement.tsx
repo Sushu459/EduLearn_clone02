@@ -344,7 +344,7 @@ setTimeout(() => {
   const endDisplay = totalItems === 0 ? 0 : Math.min(indexOfLast, totalItems);
 
   return (
-    <div className="flex bg-gray-50 min-h-screen">
+    <div className="flex bg-gray-100 min-h-screen">
       <div className="hidden md:block">
         {/* <NavigationSidebar user={user} /> */}
       </div>

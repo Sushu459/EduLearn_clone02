@@ -171,7 +171,7 @@ const FacultyDashboard: React.FC<FacultyDashboardProps> = ({ user }) => {
   }
 
   return (
-    <div className="flex bg-gray-50 min-h-screen">
+    <div className="flex bg-gray-100 min-h-screen">
       {/* <NavigationSidebar user={user} /> */}
 
       <div className="flex-1 p-8">
