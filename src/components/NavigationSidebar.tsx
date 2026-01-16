@@ -181,15 +181,16 @@ const NavigationSidebar: React.FC<NavigationSidebarProps> = ({ user }) => {
                 icon={<PlusCircle className="w-5 h-5" />}
                 label="Create Assessment"
               />
-              <NavItem
-                to="/course-materials"
-                icon={<FileText className="w-5 h-5" />}
-                label="Course Materials"
-              />
+             
               <NavItem
                 to="/coding-management"
                 icon={<Code2 className="w-5 h-5" />}
                 label="Coding Problems"
+              />
+               <NavItem
+                to="/course-materials"
+                icon={<FileText className="w-5 h-5" />}
+                label="Course Materials"
               />
               <NavItem
               to="/faculty/student"
@@ -201,26 +202,31 @@ const NavigationSidebar: React.FC<NavigationSidebarProps> = ({ user }) => {
 
           {user.role === 'student' && (
             <>
-              <NavItem
-                to="/courses"
-                icon={<BookOpen className="w-5 h-5" />}
-                label="Course Materials"
-              />
+              
               <NavItem
                 to="/coding-lab"
                 icon={<Code2 className="w-5 h-5" />}
                 label="Coding Lab"
               />
+
               <NavItem
-                to="/score-calculator"
-                icon={<Calculator className="w-5 h-5" />}
-                label="Score Calculator"
+                to="/courses"
+                icon={<BookOpen className="w-5 h-5" />}
+                label="Course Materials"
               />
+              
               <NavItem
                 to="/ai-assistant"
                 icon={<Sparkles className="w-5 h-5" />}
                 label="AI Assistant"
               />
+
+              <NavItem
+                to="/score-calculator"
+                icon={<Calculator className="w-5 h-5" />}
+                label="Score Calculator"
+              />
+
             </>
           )}
 

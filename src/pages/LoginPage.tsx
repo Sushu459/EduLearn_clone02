@@ -83,7 +83,9 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
             <div className="bg-primary-100 p-3 rectangle-full mb-4 shadow-sm">
               <img src={EduvergeLogo} alt="EduVerge logo" className="w-16 h-16 object-contain" />
             </div>
-            <h1 className="text-3xl font-bold text-gray-800">EduVerge</h1>
+            {/* <h1 className="text-3xl font-bold text-gray-800">EduVerge</h1> */}
+            <h1 className="text-3xl font-bold bg-gradient-to-r bold from-indigo-800 to-green-500 bg-clip-text text-transparent">
+    EduVerge</h1>
             <p className="text-gray-600 mt-2">Smart Learning & Assessment</p>
           </div>
 
