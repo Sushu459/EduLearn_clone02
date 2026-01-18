@@ -81,8 +81,9 @@ const NavigationSidebar: React.FC<NavigationSidebarProps> = ({ user }) => {
         aria-label={isOpen ? 'Close menu' : 'Open menu'}
         aria-expanded={isOpen}
         className="md:hidden fixed top-4 left-4 z-50 p-2
-        bg-gradient-to-r 
-        text-gray-600 rounded-xl shadow-md
+        bg-gradient-to-r
+        text-cyan-900
+         rounded-xl shadow-md
         hover:from-purple-200 hover:to-orange-100
         transition-all duration-300"
       >
